@@ -29,6 +29,10 @@ class API:
             print(noidung, speed, invert)
             return self.templates.TemplateResponse('index.html', context={'request': request, 'result': 'Thiết lập thành công'})
 
+        @self.app.post("/off")
+        async def off(request: Request):
+            return self.templates.TemplateResponse('index.html', context={'request': request})
+
 api = API()
 
 if __name__=='__main__':

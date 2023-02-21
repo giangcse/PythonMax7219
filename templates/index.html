@@ -54,7 +54,8 @@
                   Đảo ngược hướng chạy chữ
                 </label>
               </div>
-              <button type="button" id="saveBtn" class="btn btn-success float-end" onclick="submit()"><i class="fa-regular fa-floppy-disk"></i> Lưu</button>
+              <button type="button" id="saveBtn" class="btn btn-success" onclick="submit()"><i class="fa-regular fa-floppy-disk"></i> Lưu</button>
+              <button type="button" id="disableBtn" class="btn btn-warning float-end" onclick="disable()"><i class="fa-solid fa-power-off"></i> Tắt hiển thị</button>
             </form>
             <!-- END FORM -->
             <!-- START SUBMIT JQUERY -->
@@ -66,7 +67,24 @@
                 form.append("invert", document.getElementById("invert").checked);
   
                 var settings = {
-                  "url": "127.0.0.1:88",
+                  "url": "/",
+                  "method": "POST",
+                  "timeout": 0,
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form
+                };
+  
+                $.ajax(settings).done(function (response) {
+                  console.log(response);
+                });
+              }
+
+              function disable(){
+                var form = new FormData();  
+                var settings = {
+                  "url": "/off",
                   "method": "POST",
                   "timeout": 0,
                   "processData": false,
