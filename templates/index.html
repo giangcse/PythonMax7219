@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LED Matrix MAX7219 Raspberry Pi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <!-- START NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="dark">
+      <div class="container">
+        <a class="navbar-brand" href="#" style="color: black; font-weight: 900;">PiLED</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- START BODY -->
+    <div class="container mt-4">
+      <div class="row">
+        <!-- START MAIN CARD -->
+        <div class="col-lg-3"></div>
+        <div class="card col-lg-6">
+          <!-- <img src="..." class="card-img-top" alt="..."> -->
+          <div class="card-body">
+            <h4 style="text-align: center;">TÙY CHỈNH NỘI DUNG HIỂN THỊ LED</h4>
+            <!-- START FORM -->
+            <form method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="noidung" class="form-label">Nội dung hiển thị</label>
+                <input type="text" class="form-control" id="noidung" name="noidung" placeholder="Nhập nội dung cần hiển thị">
+              </div>
+              <div class="mb-3">
+                <label for="speed" class="form-label">Tốc độ chạy chữ</label>
+                <select name="speed" id="speed" class="form-control">
+                  <option value="10">1</option>
+                  <option value="9">2</option>
+                  <option value="8">3</option>
+                  <option value="7">4</option>
+                  <option value="6">5</option>
+                  <option value="5">6</option>
+                  <option value="4">7</option>
+                  <option value="3">8</option>
+                  <option value="2">9</option>
+                  <option value="1">10</option>
+                </select>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="invert" id="invert">
+                <label class="form-check-label" for="invert">
+                  Đảo ngược hướng chạy chữ
+                </label>
+              </div>
+              <button type="button" id="saveBtn" class="btn btn-success float-end" onclick="submit()"><i class="fa-regular fa-floppy-disk"></i> Lưu</button>
+            </form>
+            <!-- END FORM -->
+            <!-- START SUBMIT JQUERY -->
+            <script>
+              function submit(){
+                var form = new FormData();
+                form.append("noidung", document.getElementById('noidung').value);
+                form.append("speed", document.getElementById('speed').value);
+                form.append("invert", document.getElementById("invert").checked);
+  
+                var settings = {
+                  "url": "127.0.0.1:88",
+                  "method": "POST",
+                  "timeout": 0,
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form
+                };
+  
+                $.ajax(settings).done(function (response) {
+                  console.log(response);
+                });
+              }
+            </script>
+            <!-- END SUBMIT JQUERY -->
+          </div>
+        </div>
+        <!-- END MAIN CARD -->
+      </div>
+    </div>
+    <!-- END BODY -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  </body>
+</html>
